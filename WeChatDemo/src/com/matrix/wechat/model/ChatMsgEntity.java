@@ -2,21 +2,14 @@ package com.matrix.wechat.model;
 
 public class ChatMsgEntity {
 	private static final String TAG = ChatMsgEntity.class.getSimpleName();
+	private String name;// 谁发的
+	private String date;// 日期
+	private String text;// 内容
+	private boolean isComMeg = true;// 是接收的还是发送的
+	private boolean isGroup = false;// 是否群聊
+	private String sendNameBy = null;// 群聊信息谁发的
+	private String pic = null;// 发信息人的头像
 
-	private String name;//谁发的
-
-	private String date;//日期
-
-	private String text;//内容
-
-	private boolean isComMeg = true;//是接收的还是发送的
-	
-	private boolean isGroup = false;//是否群聊
-
-	private String sendNameBy = null;//群聊信息谁发的
-	
-	private String pic = null;//发信息人的头像
-	
 	public String getName() {
 		return name;
 	}
@@ -113,5 +106,5 @@ public class ChatMsgEntity {
 		this.isComMeg = isComMeg;
 		this.isGroup = isGroup;
 	}
-	
+
 }

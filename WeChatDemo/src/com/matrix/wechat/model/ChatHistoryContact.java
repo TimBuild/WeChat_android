@@ -6,9 +6,6 @@ import java.io.Serializable;
  * 聊天列表 record chat history contact info
  */
 public class ChatHistoryContact implements Serializable {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -3148729169970182934L;
 	private Integer userid;
 	private String nickname;
@@ -21,7 +18,6 @@ public class ChatHistoryContact implements Serializable {
 
 	public ChatHistoryContact() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public ChatHistoryContact(Integer userid, String nickname, String username,

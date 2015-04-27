@@ -7,9 +7,6 @@ import java.io.Serializable;
  */
 public class ChatHistoryMessage implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 8348434195997405794L;
 	private Integer messageId;
 	private String picture;// 发送人头像(私聊)

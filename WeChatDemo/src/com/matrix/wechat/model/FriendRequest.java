@@ -2,11 +2,11 @@ package com.matrix.wechat.model;
 
 
 public class FriendRequest {
-	long requestid;//编号
-	long userid;//申请加好友的id
-	String nickname;//昵称
-	Long date;//日期
-	int status;//状态
+	private long requestid;//编号
+	private long userid;//申请加好友的id
+	private String nickname;//昵称
+	private Long date;//日期
+	private int status;//状态
 
 	public FriendRequest() {
 		super();

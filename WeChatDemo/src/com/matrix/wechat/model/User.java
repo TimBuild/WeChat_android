@@ -1,12 +1,12 @@
 package com.matrix.wechat.model;
 
 public class User {
-	long userid;// 编号
-	String username;// 用户名
-	String nickname;// 昵称
-	String picture;// 头像
-	String password;// 密码
-	int status;// 登陆状态0（未登录）,1
+	private long userid;// 编号
+	private String username;// 用户名
+	private String nickname;// 昵称
+	private String picture;// 头像
+	private String password;// 密码
+	private int status;// 登陆状态0（未登录）,1
 
 	public User() {
 		super();
