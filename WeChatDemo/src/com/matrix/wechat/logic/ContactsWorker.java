@@ -25,6 +25,13 @@ import com.matrix.wechat.web.service.factory.ContactsServiceFactory;
 import static com.matrix.wechat.global.Constants.*;
 
 public class ContactsWorker {
+	/**
+	 * 获取用户的所有联系人
+	 * Developer Sam
+	 * 2015年4月28日
+	 * @param activity
+	 * @return
+	 */
 	public static List<User> getContacts(Activity activity) {
 		List<User> contacts = null;
 		try {
@@ -56,6 +63,12 @@ public class ContactsWorker {
 		return contacts;
 	}
 
+	/**
+	 * 获取联系人成功后，更新UI数据
+	 * Developer Sam
+	 * 2015年4月28日
+	 * @param resultMap
+	 */
 	@SuppressWarnings("unchecked")
 	public static void notifyContacts(HashMap<String, Object> resultMap) {
 		List<User> contacts = (List<User>) resultMap.get(API_CONTACTS);
@@ -69,6 +82,13 @@ public class ContactsWorker {
 
 	}
 
+	/**
+	 * 根据新朋友的账号查询新朋友
+	 * Developer Sam
+	 * 2015年4月28日
+	 * @param username
+	 * @return
+	 */
 	public static List<User> getNewFriends(String username) {
 
 		Log.i("info", "username --> " + username);
@@ -103,6 +123,12 @@ public class ContactsWorker {
 		return friends;
 	}
 
+	/**
+	 * 查询成功后，更新UI数据
+	 * Developer Sam
+	 * 2015年4月28日
+	 * @param resultMap
+	 */
 	@SuppressWarnings("unchecked")
 	public static void notifyNewFriends(HashMap<String, Object> resultMap) {
 		List<User> friends = (List<User>) resultMap.get(API_FIND_FRIEND);
@@ -115,6 +141,14 @@ public class ContactsWorker {
 		AddNewFriendActivity.adapter.notifyDataSetChanged();
 	}
 
+	/**
+	 * 发送添加朋友进通讯录的请求
+	 * Developer Sam
+	 * 2015年4月28日
+	 * @param from
+	 * @param to
+	 * @return
+	 */
 	public static boolean postNewFriendRequest(long from, long to) {
 		boolean isSuccess = false;
 		boolean result = false;
@@ -135,6 +169,12 @@ public class ContactsWorker {
 		return isSuccess;
 	}
 
+	/**
+	 * 发送申请成功后，页面提示信息
+	 * Developer Sam
+	 * 2015年4月28日
+	 * @param resultMap
+	 */
 	public static void notifyNewFriendRequest(HashMap<String, Object> resultMap) {
 		boolean result = (Boolean) resultMap.get(API_ADD_FRIEND_REQUEST);
 
@@ -151,6 +191,13 @@ public class ContactsWorker {
 		toast.show();
 	}
 
+	/**
+	 * 获取新朋友申请列表
+	 * Developer Sam
+	 * 2015年4月28日
+	 * @param userid
+	 * @return
+	 */
 	public static List<FriendRequest> getRequestList(long userid) {
 		List<FriendRequest> friendRequests = null;
 		try {
@@ -172,6 +219,12 @@ public class ContactsWorker {
 		return friendRequests;
 	}
 
+	/**
+	 * 获取成功后
+	 * Developer Sam
+	 * 2015年4月28日
+	 * @param resultMap
+	 */
 	public static void notifyRequestList(HashMap<String, Object> resultMap) {
 		@SuppressWarnings("unchecked")
 		List<FriendRequest> friendRequests = (List<FriendRequest>) resultMap
@@ -182,6 +235,13 @@ public class ContactsWorker {
 		FriendRequestActivity.adapter.notifyDataSetChanged();
 	}
 
+	/**
+	 * 根据用户ID获取用户信息
+	 * Developer Sam
+	 * 2015年4月28日
+	 * @param userid
+	 * @return
+	 */
 	public static User gerUserByUserid(long userid) {
 		User user = null;
 		try {
@@ -201,6 +261,13 @@ public class ContactsWorker {
 		return user;
 	}
 
+	/**
+	 * 获取用户信息成功后，更新UI
+	 * Developer Sam
+	 * 2015年4月28日
+	 * @param activity
+	 * @param resultMap
+	 */
 	public static void notifyGetUserById(Activity activity,
 			HashMap<String, Object> resultMap) {
 		User user = (User) resultMap.get(API_GET_USER_BY_USERID);
@@ -219,6 +286,14 @@ public class ContactsWorker {
 		}
 	}
 
+	/**
+	 * 处理新朋友申请
+	 * Developer Sam
+	 * 2015年4月28日
+	 * @param requestID
+	 * @param status
+	 * @return
+	 */
 	public static boolean responseRequest(long requestID, String status) {
 		boolean result = false;
 		try {
@@ -236,6 +311,12 @@ public class ContactsWorker {
 		return result;
 	}
 
+	/**
+	 * 处理成功后，提示信息
+	 * Developer Sam
+	 * 2015年4月28日
+	 * @param resultMap
+	 */
 	public static void notifyResponseRequests(HashMap<String, Object> resultMap) {
 		boolean result = (Boolean) resultMap.get(API_RESPONSE_REQUEST);
 		final Dialog dialog = (Dialog) resultMap.get(ACTIVITY_DIALOG);
