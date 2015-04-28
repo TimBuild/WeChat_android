@@ -127,16 +127,16 @@ public class LoginActivity extends Activity{
 					mHandler.sendMessage(msg);
 
 				} else if (1 == status) {
-//					Message msg = new Message();
-//					msg.what = 4;
-//					mHandler.sendMessage(msg);
+					Message msg = new Message();
+					msg.what = 4;
+					mHandler.sendMessage(msg);
 				}
 
 				if (username.equals(mUser.getText().toString())
 						&& password.equals(mPassword.getText().toString())) {
 
-//					Boolean tesetBoolean = userService.logout(userid, "IN");
-//					Log.i("Login", String.valueOf(tesetBoolean));
+					Boolean tesetBoolean = userService.logout(userid, "IN");
+					Log.i("Login", String.valueOf(tesetBoolean));
 
 					// 实例化SharedPreferences对象（第一步) 
 					SharedPreferences mySharedPreferences = getSharedPreferences(
@@ -205,7 +205,7 @@ public class LoginActivity extends Activity{
 								getResources().getDrawable(
 										R.drawable.login_error_icon))
 						.setTitle("Login error")
-						.setMessage("Account does not exits or wrong password!")
+						.setMessage("Account does not exists or wrong password!")
 						.create().show();
 				break;
 
@@ -231,23 +231,24 @@ public class LoginActivity extends Activity{
 	protected void onResume() {
 		super.onResume();
 /*		JPushInterface.onResume(getApplicationContext());
-*///		new AsyncTask<Void, Void, Boolean>() {
-//
-//			@Override
-//			protected Boolean doInBackground(Void... params) {
-//				boolean result = PersonalInfoFactory.getInstance().logout(
-//						CacheUtil.getUser(Login.this).getUserid(), "OUT");
-//				User user = CacheUtil.getUser(Login.this);
-//				user.setStatus(0);
-//				CacheUtil.updateCachedUser(user, Login.this);
-//				return result;
-//			}
-//
-//			@Override
-//			protected void onPostExecute(Boolean result) {
-//				super.onPostExecute(result);
-//			}
-//		}.execute();
+*/
+			new AsyncTask<Void, Void, Boolean>() {
+
+			@Override
+			protected Boolean doInBackground(Void... params) {
+				boolean result = PersonalInfoFactory.getInstance().logout(
+						CacheUtil.getUser(LoginActivity.this).getUserid(), "OUT");
+				User user = CacheUtil.getUser(LoginActivity.this);
+				user.setStatus(0);
+				CacheUtil.updateCachedUser(user, LoginActivity.this);
+				return result;
+			}
+
+			@Override
+			protected void onPostExecute(Boolean result) {
+				super.onPostExecute(result);
+			}
+		}.execute();
 		if (mWorking)
 			PushManager.stopWork(LoginActivity.this);
 	};
