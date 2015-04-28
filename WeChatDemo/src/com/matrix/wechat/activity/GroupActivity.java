@@ -9,6 +9,8 @@ import java.util.concurrent.ExecutionException;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -71,7 +73,7 @@ public class GroupActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				handler.sendEmptyMessage(0);
-				
+				GroupActivity.this.finish();
 			}
 		});
 
@@ -195,8 +197,9 @@ public class GroupActivity extends Activity {
 					
 					chatHistoryContact.setNickname(group_name);
 					//群头像
+					Bitmap bmp = BitmapFactory.decodeResource(CacheUtil.context.getResources(), R.drawable.group_icon);
 					chatHistoryContact
-							.setPicture("");
+							.setPicture(BitmapUtil.bitmaptoString(bmp));
 					chatHistoryContact.setUserid(group);
 					chatHistoryContact.setUsername(group + "");
 					chatHistoryContact.setGroup(true);

@@ -302,6 +302,7 @@ public class ChatActivity extends Activity implements OnClickListener {
 			Intent intent = new Intent(ChatActivity.this,
 					GroupActivity.class);
 			startActivity(intent);
+			ChatActivity.this.finish();
 			break;
 		}
 	}
