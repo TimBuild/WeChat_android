@@ -17,6 +17,7 @@ public class RecordVoice {
 	  private static long start = 0;
 	  private static long end = 0;
 	    public void startRecording() {
+	    	Log.d("RecordVoice", mFileName);
 	    	mRecorder = new MediaRecorder();
 
 	        //设置音源为Micphone  
