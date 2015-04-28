@@ -230,8 +230,8 @@ public class LoginActivity extends Activity{
 	@Override
 	protected void onResume() {
 		super.onResume();
-/*		JPushInterface.onResume(getApplicationContext());
-*/
+//		JPushInterface.onResume(getApplicationContext());
+
 			new AsyncTask<Void, Void, Boolean>() {
 
 			@Override

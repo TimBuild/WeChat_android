@@ -2,6 +2,7 @@ package com.matrix.wechat.activity;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -15,6 +16,8 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Base64;
+import android.util.Log;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
@@ -154,11 +157,17 @@ public class PersonalInfoActivity extends Activity {
 			Uri uri = data.getData();
 			System.out.println(uri);
 			ContentResolver cr = this.getContentResolver();
-			try {
-				Bitmap bmp = BitmapFactory.decodeStream(cr.openInputStream(uri));
-				bmp = Compress.compressBitmap(bmp, 50);
+//			try {
+//				Bitmap bmp = BitmapFactory.decodeStream(cr.openInputStream(uri));
+//				bmp = Compress.compressBitmap(bmp, 50);
+				
+				
+				
+				Bitmap bmp = testIcon(uri);
+				
 				Constants.OWN_HEAD_IMAGE = bmp;
 				String imgStr = bitmaptoString(bmp);
+				Log.i("PersonalInfoActivity", imgStr);
 				new AsyncTask<String, Void, Boolean>() {
 					
 					private String imgStr = null;
@@ -180,9 +189,7 @@ public class PersonalInfoActivity extends Activity {
 						setBase64Image(imgStr);
 					}
 				}.execute(imgStr);
-			} catch (FileNotFoundException e) {
-				e.printStackTrace();
-			}
+			
 			
 		}
 	}
@@ -190,6 +197,53 @@ public class PersonalInfoActivity extends Activity {
 	public boolean updateUser(User user) {
 		boolean result = PersonalInfoFactory.getInstance().updateUser(user.getUserid(), user.getUsername(), user.getPassword(), user.getPicture(), user.getNickname());
 		return result;
+	}
+	
+	public Bitmap testIcon(Uri uri){
+		ContentResolver cr = this.getContentResolver();
+		try {
+			BitmapFactory.Options opt = new BitmapFactory.Options();
+			opt.inJustDecodeBounds = true;
+			Bitmap bmp = BitmapFactory.decodeStream(
+					cr.openInputStream(uri), null, opt);
+
+			int picWidth = opt.outWidth;
+			int picHeight = opt.outHeight;
+
+			WindowManager windowManager = getWindowManager();
+			Display display = windowManager.getDefaultDisplay();
+
+			int width = 20;
+			int height = 20;
+
+			opt.inSampleSize = 1;
+			// 根据屏的大小和图片大小计算出缩放比例
+			if (picWidth > picHeight) {
+				if (picWidth > width)
+					opt.inSampleSize = picWidth / width;
+			}
+
+			else {
+				if (picHeight > height)
+					opt.inSampleSize = picHeight / height;
+			}
+
+			// 这次再真正地生成一个有像素的，经过缩放了的bitmap
+			opt.inJustDecodeBounds = false;
+
+			bmp = BitmapFactory.decodeStream(cr.openInputStream(uri), null,
+					opt);
+			return bmp;
+		
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 }
