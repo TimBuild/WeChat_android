@@ -35,4 +35,6 @@ public class Constants {
 	// judge how to handle message
 	public static String CURRENT_VIEW = "";
 	public static String CURRENT_CHAT_WITH = "";
+	
+	public static String UPLOAD_Url = "http://192.168.1.80/api1/upload.php"; // 处理POST请求的页面
 }
