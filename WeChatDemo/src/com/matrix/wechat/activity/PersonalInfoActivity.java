@@ -162,7 +162,6 @@ public class PersonalInfoActivity extends Activity {
 			System.out.println(uri);
 
 			try {
-				Display display = getWindowManager().getDefaultDisplay();
 				Bitmap bmp = BitmapUtil.getBitmapFromContentProviderUri(this,
 						50, 50, uri);
 
