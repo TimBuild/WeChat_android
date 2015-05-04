@@ -2,6 +2,7 @@ package com.matrix.wechat.web.service.factory;
 
 import retrofit.RestAdapter;
 
+import com.matrix.wechat.global.Constants;
 import com.matrix.wechat.web.service.ChatMessageSrevice;
 
 /**
@@ -11,10 +12,10 @@ import com.matrix.wechat.web.service.ChatMessageSrevice;
 public class ChatMessageFactory {
 	private static ChatMessageSrevice chatMessageSrevice = null;
 
-	public static ChatMessageSrevice getInstance(String postUrl) {
+	public static ChatMessageSrevice getInstance() {
 		if (chatMessageSrevice == null) {
 			RestAdapter restAdapter = new RestAdapter.Builder().setEndpoint(
-					postUrl).build();
+					Constants.API_MESSAGE).build();
 			restAdapter.setLogLevel(RestAdapter.LogLevel.FULL);
 			chatMessageSrevice = restAdapter.create(ChatMessageSrevice.class);
 		}

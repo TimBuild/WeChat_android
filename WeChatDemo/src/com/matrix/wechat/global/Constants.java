@@ -4,10 +4,13 @@ import android.graphics.Bitmap;
 
 public class Constants {
 	// API for restful 
-	public final static String API_CONTACTS = "http://192.168.1.80/api1/user";
-	public final static String API_VOICE = "http://192.168.1.80/api1/upload.php";
-	
-	public final static String API_GROUPS = "http://192.168.1.80/api1/group";
+	public final static String API_BASE_URL = "http://192.168.1.80:8090";
+	public final static String API_CONTACTS =  API_BASE_URL + "/api1/user";
+	public final static String API_VOICE = API_BASE_URL + "/api1/upload.php";
+	public final static String API_MESSAGE = API_BASE_URL + "/api1/message";
+	public final static String API_PUSH = API_BASE_URL + "/api1/message/jpush/examples";
+	public final static String API_GROUPS = API_BASE_URL + "/api1/group";
+	public final static String UPLOAD_Url = API_BASE_URL + "/api1/upload.php"; // 处理POST请求的页面
 
 	public final static String API_FIND_FRIEND = "find friend";
 	public final static String API_ADD_FRIEND_REQUEST = "post request";
@@ -35,6 +38,4 @@ public class Constants {
 	// judge how to handle message
 	public static String CURRENT_VIEW = "";
 	public static String CURRENT_CHAT_WITH = "";
-	
-	public static String UPLOAD_Url = "http://192.168.1.80/api1/upload.php"; // 处理POST请求的页面
 }

@@ -87,7 +87,6 @@ public class ChatActivity extends Activity implements OnClickListener {
 			.getExternalStorageDirectory().getPath() + "/imgs";
 	public static int PIC_REQUEST_CODE = 2;
 	public static LinearLayout zoomView = null;
-	private String url = "";
 	private TextView chat_with_name, chat_with_name_group;
 	private Button mBtnSend;
 	private Button mBtnBack;
@@ -104,9 +103,6 @@ public class ChatActivity extends Activity implements OnClickListener {
 	private String contact_name = "", contact_userName = "",
 			contact_name_group = "";
 	private List<ChatHistoryMessage> chatHistoryMessages = null;
-
-	private static final String mUriImage = MediaStore.Images.Media.DATA;
-	private ArrayList<Bitmap> mImageArr = new ArrayList<Bitmap>();
 
 	private ImageView picIMG;
 	private ImageView expressBtn;
@@ -181,15 +177,13 @@ public class ChatActivity extends Activity implements OnClickListener {
 		contact_userName = bundle.getString("contact_userName");
 		Constants.CURRENT_CHAT_WITH = contact_userName;
 
-		url = ReadProperties.read("url", "url") + "message";
-
 		Pattern pattern = Pattern.compile("^[-\\+]?[\\d]*$");
 		if (NetworkUtil.isNetworkConnected(this))
 			if (pattern.matcher(contact_userName).matches()) {
 				// 群聊
 				new GetMessageAsync().execute("group", contact_userName);
 			} else {
-				new GetMessageAsync().execute(url);
+				new GetMessageAsync().execute(Constants.API_MESSAGE);
 			}
 		else {
 			Toast.makeText(AddNewFriendActivity.instance, "network anomaly",
@@ -458,7 +452,7 @@ public class ChatActivity extends Activity implements OnClickListener {
 
 			} else {
 				ChatHistoryContactService chatHistoryContactService = ChatHistoryContactFactory
-						.getInstance(getMsgUrl);
+						.getInstance();
 				chatHistoryMessages = chatHistoryContactService
 						.getChatHistoryMessages(Constants.USER_ID,
 								contact_userid);
@@ -519,10 +513,8 @@ public class ChatActivity extends Activity implements OnClickListener {
 			if ((Boolean) params[1]) {
 				// 群聊
 				chatMsgEntity = (ChatMsgEntity) params[0];
-				// chatMessageSrevice = ChatMessageFactory.getInstance(url);
 				groupService = GroupServiceFactory.getInstance();
-				String pushPath = url + "/jpush/examples";
-				pushMessageService = PushMessageFactory.getInstance(pushPath);
+				pushMessageService = PushMessageFactory.getInstance();
 
 				SimpleDateFormat sdf = new SimpleDateFormat(
 						"yyyy-MM-dd HH:mm:ss");
@@ -586,10 +578,9 @@ public class ChatActivity extends Activity implements OnClickListener {
 				return flag + "";
 			} else {
 				chatMsgEntity = (ChatMsgEntity) params[0];
-				chatMessageSrevice = ChatMessageFactory.getInstance(url);
+				chatMessageSrevice = ChatMessageFactory.getInstance();
 
-				String pushPath = url + "/jpush/examples";
-				pushMessageService = PushMessageFactory.getInstance(pushPath);
+				pushMessageService = PushMessageFactory.getInstance();
 
 				SimpleDateFormat sdf = new SimpleDateFormat(
 						"yyyy-MM-dd HH:mm:ss");

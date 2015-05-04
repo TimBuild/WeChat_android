@@ -56,7 +56,6 @@ import com.matrix.wechat.web.service.factory.GroupServiceFactory;
 @SuppressLint({ "ViewHolder", "InflateParams" })
 public class ShowAllContactsHistory implements ContactsList, ChatWithUserPass {
 	protected static final String TAG = "ShowAllContactsHistory";
-	private static String url = "";
 	private static Context context;
 	private static Integer screenWidth;
 	private static ContactsHistoryAdapter mContactshistoryAdapter = null;
@@ -87,7 +86,7 @@ public class ShowAllContactsHistory implements ContactsList, ChatWithUserPass {
 		mChatHistoryContacts = new ArrayList<ChatHistoryContact>();
 		mChatHistoryContactGroups = new ArrayList<GroupLastMessage>();
 		if (NetworkUtil.isNetworkConnected(context))
-			new GetDataTask().execute(url);
+			new GetDataTask().execute(Constants.API_MESSAGE);
 		else {
 			Toast.makeText(context, "network anomaly", Toast.LENGTH_LONG)
 					.show();
@@ -99,8 +98,6 @@ public class ShowAllContactsHistory implements ContactsList, ChatWithUserPass {
 			Integer widthOfScreen, View view) {
 		context = contextPass;
 		screenWidth = widthOfScreen;
-
-		url = ReadProperties.read("url", "url") + "message";
 
 		contactsHistoryPullToRefreshSwipeListView = (PullToRefreshSwipeListView) view
 				.findViewById(R.id.contacts_history_listview);
@@ -144,7 +141,7 @@ public class ShowAllContactsHistory implements ContactsList, ChatWithUserPass {
 						if (NetworkUtil.isNetworkConnected(context)) {
 							find_contact_filter.setText("");
 							filteredChatHistoryContacts.clear();
-							new GetDataTask().execute(url);
+							new GetDataTask().execute(Constants.API_MESSAGE);
 						} else {
 							Toast.makeText(context, "network anomaly",
 									Toast.LENGTH_LONG).show();
@@ -421,7 +418,7 @@ public class ShowAllContactsHistory implements ContactsList, ChatWithUserPass {
 			String getChatWithUrl = params[0];
 			// get data from server
 			mChatHistoryContacts = ChatHistoryContactFactory.getInstance(
-					getChatWithUrl).getChatHistoryContacts(Constants.USER_ID);
+					).getChatHistoryContacts(Constants.USER_ID);
 			
 			mChatHistoryContactGroups = GroupServiceFactory.getInstance().getGroupLastMessgae(Constants.USER_ID);
 			if (mChatHistoryContacts == null) {

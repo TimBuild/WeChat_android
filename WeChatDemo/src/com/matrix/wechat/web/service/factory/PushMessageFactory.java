@@ -2,6 +2,7 @@ package com.matrix.wechat.web.service.factory;
 
 import retrofit.RestAdapter;
 
+import com.matrix.wechat.global.Constants;
 import com.matrix.wechat.web.service.PushMessageService;
 
 /**
@@ -11,10 +12,10 @@ import com.matrix.wechat.web.service.PushMessageService;
 public class PushMessageFactory {
 	private static PushMessageService pushMessageSrevice = null;
 
-	public static PushMessageService getInstance(String postUrl) {
+	public static PushMessageService getInstance() {
 		if (pushMessageSrevice == null) {
 			RestAdapter restAdapter = new RestAdapter.Builder().setEndpoint(
-					postUrl).build();
+					Constants.API_PUSH).build();
 			restAdapter.setLogLevel(RestAdapter.LogLevel.FULL);
 			pushMessageSrevice = restAdapter.create(PushMessageService.class);
 		}
